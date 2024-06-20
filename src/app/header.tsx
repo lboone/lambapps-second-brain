@@ -1,9 +1,6 @@
-"use client";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { SignInButton, UserButton } from "@clerk/clerk-react";
-import { Authenticated, Unauthenticated } from "convex/react";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import {
   Tooltip,
@@ -11,6 +8,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import HeaderActions from "./header-actions";
 
 const Header = () => {
   return (
@@ -40,17 +38,8 @@ const Header = () => {
         </Link>
 
         <div className="flex items-center gap-2 justify-between">
-          <Unauthenticated>
-            <div className="rounded-full px-6 py-1 text-slate-100 dark:text-slate-600 bg-slate-600 dark:bg-slate-100  ">
-              <SignInButton />
-            </div>
-          </Unauthenticated>
-          <Authenticated>
-            <div className="flex items-center justify-between gap-4">
-              <ModeToggle />
-              <UserButton />
-            </div>
-          </Authenticated>
+          <ModeToggle />
+          <HeaderActions />
         </div>
       </div>
     </header>
