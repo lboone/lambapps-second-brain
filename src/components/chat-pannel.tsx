@@ -1,60 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from "@/components/ui/resizable";
-import { useAction } from "convex/react";
+import { ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
+import { useAction, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { askQuestion } from "../../convex/documents";
 import { Id } from "../../convex/_generated/dataModel";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import ChatPannelContent from "./chat-pannel-content";
+import LoadingButton from "./loading-button";
 
 interface ChatPannelProps {
   documentId: Id<"documents">;
 }
 const ChatPannel = ({ documentId }: ChatPannelProps) => {
+  const [loading, setLoading] = useState(false);
+  const chats = useQuery(api.chats.getChatsForDocument, { documentId });
   const askQuestion = useAction(api.documents.askQuestion);
 
   return (
     <ResizablePanelGroup direction="vertical">
       <ResizablePanel defaultSize={90} maxSize={90} minSize={90}>
-        <div className="overflow-y-auto h-[99%] text-white">
-          <div className="p-4 bg-gray-800">Hello</div>
-          <div className="p-4 bg-gray-800">Hello</div>
-          <div className="p-4 bg-gray-800">Hello</div>
-          <div className="p-4 bg-gray-800">Hello</div>
-          <div className="p-4 bg-gray-800">Hello</div>
-          <div className="p-4 bg-gray-800">Hello</div>
-          <div className="p-4 bg-gray-800">Hello</div>
-          <div className="p-4 bg-gray-800">Hello</div>
-          <div className="p-4 bg-gray-800">Hello</div>
-          <div className="p-4 bg-gray-800">Hello</div>
-          <div className="p-4 bg-gray-800">Hello</div>
-          <div className="p-4 bg-gray-800">Hello</div>
-          <div className="p-4 bg-gray-800">Hello</div>
-          <div className="p-4 bg-gray-800">Hello</div>
-          <div className="p-4 bg-gray-800">Hello</div>
-          <div className="p-4 bg-gray-800">Hello</div>
-          <div className="p-4 bg-gray-800">Hello</div>
-          <div className="p-4 bg-gray-800">Hello</div>
-          <div className="p-4 bg-gray-800">Hello</div>
-          <div className="p-4 bg-gray-800">Hello</div>
-        </div>
+        <ScrollArea className="h-[99%]  border rounded-lg p-2 ">
+          <div className="text-white flex flex-col gap-4">
+            {chats?.map((chat, index) => (
+              <ChatPannelContent key={index} isHuman={chat.isHuman}>
+                {chat.text}
+              </ChatPannelContent>
+            ))}
+          </div>
+        </ScrollArea>
       </ResizablePanel>
-      <ResizableHandle />
       <ResizablePanel defaultSize={10} maxSize={10} minSize={10}>
         <div>
           <form
             className="flex gap-2 p-2"
             onSubmit={async (event) => {
               event.preventDefault();
+              setLoading(true);
               const form = event.target as HTMLFormElement;
               const formData = new FormData(form);
               const question = formData.get("text") as string;
 
               await askQuestion({ question, documentId }).then(console.log);
+              form.reset();
+              setLoading(false);
             }}
           >
             <Input
@@ -63,9 +53,15 @@ const ChatPannel = ({ documentId }: ChatPannelProps) => {
               type="text"
               placeholder="Type your message"
             />
-            <Button variant="site" size="site" type="submit">
+            <LoadingButton
+              isLoading={loading}
+              variant="site"
+              size="site"
+              type="submit"
+              loadingText=""
+            >
               Submit
-            </Button>
+            </LoadingButton>
           </form>
         </div>
       </ResizablePanel>

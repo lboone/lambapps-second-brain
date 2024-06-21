@@ -1,5 +1,5 @@
 import { action, mutation, query } from "./_generated/server";
-import { api } from "./_generated/api";
+import { api, internal } from "./_generated/api";
 import { ConvexError, v } from "convex/values";
 import OpenAI from "openai";
 
@@ -110,6 +110,28 @@ export const askQuestion = action({
         ],
         model: "gpt-3.5-turbo",
       });
-    return chatCompletion.choices[0].message.content;
+
+    // TODO: store user prompt as a chat record
+
+    await ctx.runMutation(internal.chats.createChatRecord, {
+      documentId: args.documentId,
+      text: args.question,
+      tokenIdentifier: userId,
+      isHuman: true,
+    });
+
+    const response =
+      chatCompletion.choices[0].message.content ??
+      "Could not generate AI response!";
+
+    // TODO: store AI response as a chat record
+    await ctx.runMutation(internal.chats.createChatRecord, {
+      documentId: args.documentId,
+      text: response,
+      tokenIdentifier: userId,
+      isHuman: false,
+    });
+
+    return response;
   },
 });

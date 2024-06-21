@@ -2,12 +2,11 @@
 import { api } from "../../../../convex/_generated/api";
 import { useQuery } from "convex/react";
 import { Id } from "../../../../convex/_generated/dataModel";
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from "@/components/ui/resizable";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 import ChatPannel from "@/components/chat-pannel";
+import { GiArtificialHive } from "react-icons/gi";
+import { GrDocumentPdf } from "react-icons/gr";
 
 const DocumentPage = ({
   params,
@@ -26,28 +25,43 @@ const DocumentPage = ({
       <div className="flex flex-col justify-between items-center gap-8">
         <h1 className="text-4xl font-bold">{document.title}</h1>
       </div>
-      <ResizablePanelGroup
-        direction="horizontal"
-        className="p-2 border rounded-lg"
-      >
-        <ResizablePanel
-          defaultSize={75}
-          maxSize={75}
-          minSize={75}
-          className="h-[650px]"
-        >
+      <Tabs defaultValue="document">
+        <TabsList>
+          <TabsTrigger value="document">
+            <>
+              <div className="hidden sm:flex gap-2 items-center">
+                <GrDocumentPdf className="size-4" />
+                Your Document
+              </div>
+              <div className="flex gap-2 items-center sm:hidden">
+                <GrDocumentPdf className="size-4" />
+                Document
+              </div>
+            </>
+          </TabsTrigger>
+          <TabsTrigger value="chat">
+            <>
+              <div className="hidden sm:flex gap-2 items-center">
+                <GiArtificialHive className="size-4" /> Chat With Your Document
+              </div>
+              <div className="flex gap-2 items-center sm:hidden">
+                <GiArtificialHive className="size-4" /> Chat
+              </div>
+            </>
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent value="document" className="border rounded-lg p-2">
           {document.documentUrl && (
             <iframe
               src={document.documentUrl}
-              className="w-full h-full"
+              className="w-full h-[550px] rounded-lg"
             ></iframe>
           )}
-        </ResizablePanel>
-        <ResizableHandle />
-        <ResizablePanel className="h-[650px]">
+        </TabsContent>
+        <TabsContent value="chat" className="border rounded-lg p-2 h-[550px]">
           <ChatPannel documentId={params.documentId}></ChatPannel>
-        </ResizablePanel>
-      </ResizablePanelGroup>
+        </TabsContent>
+      </Tabs>
     </main>
   );
 };
