@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
@@ -17,6 +17,18 @@ const ChatPannel = ({ documentId }: ChatPannelProps) => {
   const [loading, setLoading] = useState(false);
   const chats = useQuery(api.chats.getChatsForDocument, { documentId });
   const askQuestion = useAction(api.documents.askQuestion);
+  const chatContainerRef = React.useRef<null | HTMLDivElement>(null);
+  const scrollToBottom = () => {
+    chatContainerRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, []);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [chats?.length]);
 
   return (
     <ResizablePanelGroup direction="vertical">
@@ -28,6 +40,7 @@ const ChatPannel = ({ documentId }: ChatPannelProps) => {
                 {chat.text}
               </ChatPannelContent>
             ))}
+            <div ref={chatContainerRef} />
           </div>
         </ScrollArea>
       </ResizablePanel>
