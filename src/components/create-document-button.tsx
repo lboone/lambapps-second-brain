@@ -24,7 +24,7 @@ const CreateDocumentButton = () => {
         <Button variant="site" size="site">
           <div className="flex items-center gap-2 justify-center">
             <HiOutlineUpload className="size-6" />
-            <p className="text-lg">New Doc</p>
+            <p className="text-lg">Upload Doc</p>
           </div>
         </Button>
       </DialogTrigger>
