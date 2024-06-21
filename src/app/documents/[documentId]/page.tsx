@@ -2,7 +2,12 @@
 import { api } from "../../../../convex/_generated/api";
 import { useQuery } from "convex/react";
 import { Id } from "../../../../convex/_generated/dataModel";
-import { Divide } from "lucide-react";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/components/ui/resizable";
+import ChatPannel from "@/components/chat-pannel";
 
 const DocumentPage = ({
   params,
@@ -17,21 +22,32 @@ const DocumentPage = ({
     return <div>You dohn't have acces to the document!</div>;
   }
   return (
-    <main className="p-24 space-y-8">
+    <main className="p-10 space-y-8">
       <div className="flex flex-col justify-between items-center gap-8">
         <h1 className="text-4xl font-bold">{document.title}</h1>
       </div>
-      <div className="flex gap-12">
-        <div className="bg-gray-900 p-4 rounded h-[600px] flex-1">
+      <ResizablePanelGroup
+        direction="horizontal"
+        className="p-2 border rounded-lg"
+      >
+        <ResizablePanel
+          defaultSize={75}
+          maxSize={75}
+          minSize={75}
+          className="h-[650px]"
+        >
           {document.documentUrl && (
             <iframe
               src={document.documentUrl}
               className="w-full h-full"
             ></iframe>
           )}
-        </div>
-        <div className="w-[300px] bg-gray-900"></div>
-      </div>
+        </ResizablePanel>
+        <ResizableHandle />
+        <ResizablePanel className="h-[650px]">
+          <ChatPannel documentId={params.documentId}></ChatPannel>
+        </ResizablePanel>
+      </ResizablePanelGroup>
     </main>
   );
 };
