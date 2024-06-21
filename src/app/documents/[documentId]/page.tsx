@@ -20,13 +20,17 @@ const DocumentPage = ({
     <main className="p-24 space-y-8">
       <div className="flex flex-col justify-between items-center gap-8">
         <h1 className="text-4xl font-bold">{document.title}</h1>
-        {document.documentUrl && (
-          <div className="flex">
-            <div className="bg-gray-900 p-4 rounded">
-              <iframe src={document.documentUrl} className="h-screen"></iframe>
-            </div>
-          </div>
-        )}
+      </div>
+      <div className="flex gap-12">
+        <div className="bg-gray-900 p-4 rounded h-[600px] flex-1">
+          {document.documentUrl && (
+            <iframe
+              src={document.documentUrl}
+              className="w-full h-full"
+            ></iframe>
+          )}
+        </div>
+        <div className="w-[300px] bg-gray-900"></div>
       </div>
     </main>
   );
