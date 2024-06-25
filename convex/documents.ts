@@ -1,4 +1,10 @@
-import { action, mutation, query } from "./_generated/server";
+import {
+  action,
+  internalAction,
+  internalMutation,
+  mutation,
+  query,
+} from "./_generated/server";
 import { api, internal } from "./_generated/api";
 import { ConvexError, v } from "convex/values";
 import OpenAI from "openai";
@@ -23,11 +29,21 @@ export const createDocument = mutation({
       throw new ConvexError("Not Authenticated");
     }
 
-    await ctx.db.insert("documents", {
+    const documentId = await ctx.db.insert("documents", {
       title: args.title,
       tokenIdentifier: userId,
       fileId: args.fileId,
+      description: "",
     });
+
+    await ctx.scheduler.runAfter(
+      0,
+      internal.documents.generateDocumentDescription,
+      {
+        fileId: args.fileId,
+        documentId: documentId,
+      }
+    );
   },
 });
 
@@ -67,6 +83,61 @@ export const getDocument = query({
       ...document,
       documentUrl: await ctx.storage.getUrl(document.fileId),
     };
+  },
+});
+
+export const generateDocumentDescription = internalAction({
+  args: {
+    fileId: v.id("_storage"),
+    documentId: v.id("documents"),
+  },
+  handler: async (ctx, args) => {
+    const file = await ctx.storage.get(args.fileId);
+
+    if (!file) {
+      throw new ConvexError("File not found");
+    }
+
+    const text = await file.text();
+
+    const chatCompletion: OpenAI.Chat.Completions.ChatCompletion =
+      await openai.chat.completions.create({
+        messages: [
+          {
+            role: "system",
+            content: `Here is a text file: ${text}`,
+          },
+          {
+            role: "user",
+            content: "please generate 1 sentence description for this document",
+          },
+        ],
+        model: "gpt-3.5-turbo",
+      });
+
+    const response =
+      chatCompletion.choices[0].message.content ??
+      "Could not generate an AI description for this document!";
+
+    // TODO: store AI response as a chat record
+    await ctx.runMutation(internal.documents.updateDocumentDescription, {
+      documentId: args.documentId,
+      description: response,
+    });
+
+    return response;
+  },
+});
+
+export const updateDocumentDescription = internalMutation({
+  args: {
+    documentId: v.id("documents"),
+    description: v.string(),
+  },
+  async handler(ctx, args) {
+    await ctx.db.patch(args.documentId, {
+      description: args.description,
+    });
   },
 });
 

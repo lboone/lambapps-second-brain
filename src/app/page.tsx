@@ -8,7 +8,7 @@ import {
 import { api } from "../../convex/_generated/api";
 import DocumentCard from "@/components/document-card";
 import CreateDocumentButton from "@/components/create-document-button";
-import DocumentSkeleton from "@/components/document-skeleton";
+import DocumentCardSkeleton from "@/components/document-card-skeleton";
 import Image from "next/image";
 import { Loader2 } from "lucide-react";
 import { SignInButton } from "@clerk/clerk-react";
@@ -37,7 +37,7 @@ export default function Home() {
           {!documents && (
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-2  lg:grid-cols-4 ">
               {new Array(4).fill(0).map((_, index) => (
-                <DocumentSkeleton key={index} />
+                <DocumentCardSkeleton key={index} />
               ))}
             </div>
           )}
@@ -71,7 +71,7 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2  lg:grid-cols-4 ">
             {new Array(4).fill(0).map((_, index) => (
-              <DocumentSkeleton key={index} />
+              <DocumentCardSkeleton key={index} />
             ))}
           </div>
         </main>
