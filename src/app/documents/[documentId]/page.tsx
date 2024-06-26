@@ -8,6 +8,9 @@ import ChatPannel from "@/components/chat-pannel";
 import { GiArtificialHive } from "react-icons/gi";
 import { GrDocumentPdf } from "react-icons/gr";
 import DocumentSkeleton from "@/components/document-skeleton";
+import { Button } from "@/components/ui/button";
+import { Trash } from "lucide-react";
+import DeleteDocumentButton from "@/components/delete-document-button";
 
 const DocumentPage = ({
   params,
@@ -23,8 +26,12 @@ const DocumentPage = ({
       {!document && <DocumentSkeleton />}
       {document && (
         <main className="p-10 space-y-8">
-          <div className="flex flex-col justify-between items-center gap-8">
+          <div className="flex justify-between gap-8">
             <h1 className="text-4xl font-bold">{document.title}</h1>
+            <DeleteDocumentButton
+              documentId={document._id}
+              documentTitle={document.title}
+            />
           </div>
           <Tabs defaultValue="document">
             <TabsList>

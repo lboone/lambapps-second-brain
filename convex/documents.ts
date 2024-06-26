@@ -206,3 +206,23 @@ export const askQuestion = action({
     return response;
   },
 });
+
+export const deleteDocument = mutation({
+  args: {
+    documentId: v.id("documents"),
+  },
+  async handler(ctx, args) {
+    const userId = (await ctx.auth.getUserIdentity())?.tokenIdentifier;
+    if (!userId) {
+      throw new ConvexError("Not Authenticated");
+    }
+
+    const document = await ctx.db.get(args.documentId);
+
+    if (!document) {
+      throw new ConvexError("Document not found");
+    }
+    await ctx.storage.delete(document.fileId);
+    await ctx.db.delete(args.documentId);
+  },
+});

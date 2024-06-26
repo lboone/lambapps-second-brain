@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 
 interface LoadingButtonProps {
@@ -16,6 +17,7 @@ interface LoadingButtonProps {
     | "link"
     | "site";
   size?: "default" | "sm" | "lg" | "icon" | "site";
+  buttonClass?: string;
 }
 const LoadingButton = ({
   isLoading,
@@ -25,12 +27,13 @@ const LoadingButton = ({
   loadingText = "Loading...",
   variant = "site",
   size = "site",
+  buttonClass = "",
 }: LoadingButtonProps) => {
   return (
     <Button
       disabled={isLoading}
       type={type}
-      className="flex items-center gap-1"
+      className={cn("flex items-center gap-1", buttonClass)}
       onClick={onClick}
       variant={variant}
       size={size}
