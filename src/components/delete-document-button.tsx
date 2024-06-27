@@ -49,7 +49,7 @@ const DeleteDocumentButton = ({
         setLoading(false);
         setOpen(false);
         setTitle("");
-        window.location.href = "/";
+        window.location.href = "/dashboard/documents";
       });
       return;
     }

@@ -7,6 +7,8 @@ import { IoSettingsOutline } from "react-icons/io5";
 import HeaderActions from "../header-actions";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import NavItem from "./nav-item";
+import { usePathname } from "next/navigation";
+import path from "path";
 
 const navItems = [
   {
@@ -35,11 +37,20 @@ interface NavPanelProps {
   setOpen?: React.Dispatch<React.SetStateAction<boolean>> | undefined;
 }
 const NavPanel = ({ setOpen }: NavPanelProps) => {
+  const pathname = usePathname();
+
   return (
     <nav className="flex flex-col gap-4 items-center justify-between h-[80vh] md:h-[85vh]">
       <ul className="flex flex-col gap-8 items-start">
         {navItems.map((item) => (
-          <NavItem key={item.name} href={item.href} setOpen={setOpen}>
+          <NavItem
+            key={item.name}
+            href={item.href}
+            setOpen={setOpen}
+            className={
+              pathname === item.href ? "text-amber-800 dark:text-amber-800" : ""
+            }
+          >
             {item.icon}
             {item.name}
           </NavItem>

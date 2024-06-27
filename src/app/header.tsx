@@ -5,6 +5,7 @@ import { ModeToggle } from "@/components/ui/mode-toggle";
 import HeaderActions from "./header-actions";
 import MobileNavPanel from "./dashboard/mobile-nav-panel";
 import SiteLogo from "./site-logo";
+import { MdOutlineSpaceDashboard } from "react-icons/md";
 
 const Header = () => {
   return (
@@ -17,24 +18,6 @@ const Header = () => {
               second.brain
             </h1>
           </Link>
-          <nav>
-            <Link
-              href="/dashboard"
-              className="
-              px-4 
-              py-2 
-              rounded-full 
-              border 
-              hover:bg-slate-100 
-              border-[#f5f5f5] 
-              hover:border-slate-300
-              dark:hover:bg-slate-800 
-              dark:border-[#090a0b]
-              dark:hover:border-slate-800"
-            >
-              Dashboard
-            </Link>
-          </nav>
         </div>
         <div className="">
           <MobileNavPanel />
