@@ -4,6 +4,7 @@ import { api } from "../../convex/_generated/api";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useToast } from "./ui/use-toast";
 import {
   Form,
   FormControl,
@@ -22,6 +23,8 @@ const formSchema = z.object({
 });
 
 const UploadDocumentForm = ({ onUpload }: { onUpload: () => void }) => {
+  const { toast } = useToast();
+
   const createDocumen = useMutation(api.documents.createDocument);
   const generateUploadUrl = useMutation(api.documents.generateUploadUrl);
 
@@ -43,6 +46,11 @@ const UploadDocumentForm = ({ onUpload }: { onUpload: () => void }) => {
     });
 
     if (!result.ok) {
+      toast({
+        title: "Upload Failed",
+        description: "Your document could not be uploaded.",
+        variant: "destructive",
+      });
       return;
     }
 
@@ -51,6 +59,8 @@ const UploadDocumentForm = ({ onUpload }: { onUpload: () => void }) => {
     await createDocumen({
       title: values.title,
       fileId: storageId as Id<"_storage">,
+    }).finally(() => {
+      form.reset();
     });
 
     onUpload();

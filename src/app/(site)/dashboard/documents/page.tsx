@@ -14,6 +14,7 @@ import { Loader2 } from "lucide-react";
 import { SignInButton } from "@clerk/clerk-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import PageTitle from "@/components/page-title";
+import NothingFound from "@/components/nothing-found";
 export default function Home() {
   const documents = useQuery(api.documents.getDocuments);
   return (
@@ -53,17 +54,9 @@ export default function Home() {
           )}
 
           {documents && documents.length === 0 && (
-            <div className="flex flex-col items-center justify-center gap-12 pt-12">
-              <Image
-                src="/no_documents_found.svg"
-                alt="No Documents Found"
-                width={200}
-                height={200}
-                className="size-[200px] md:size-[400px]"
-              />
-              <h2 className="text-2xl">You have no documents yet.</h2>
+            <NothingFound message="You have no documents yet.">
               <CreateDocumentButton />
-            </div>
+            </NothingFound>
           )}
         </main>
       </Authenticated>

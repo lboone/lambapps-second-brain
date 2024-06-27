@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { HiOutlineUpload } from "react-icons/hi";
 import {
   Dialog,
   DialogContent,
@@ -11,12 +10,13 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-import { Tooltip } from "@radix-ui/react-tooltip";
-import UploadDocumentForm from "./upload-document-form";
 import { useState } from "react";
 import { useToast } from "./ui/use-toast";
 
-const CreateDocumentButton = () => {
+import CreateNoteForm from "@/components/create-note-form";
+import { PlusIcon } from "lucide-react";
+
+const CreateNoteButton = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { toast } = useToast();
 
@@ -25,25 +25,24 @@ const CreateDocumentButton = () => {
       <DialogTrigger asChild>
         <Button variant="site" size="site">
           <div className="flex items-center gap-2 justify-center text-md md:text-lg">
-            <HiOutlineUpload className="" />
-            <p className="">Upload Doc</p>
+            <PlusIcon className="" />
+            <p className="">Create Note</p>
           </div>
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Upload Your New Document</DialogTitle>
+          <DialogTitle>Create a New Note</DialogTitle>
           <DialogDescription>
-            Upload a team document for you to search over in the future.
+            Type whatever note you want to be searchable later on.
           </DialogDescription>
         </DialogHeader>
-        <UploadDocumentForm
-          onUpload={() => {
+        <CreateNoteForm
+          onCreate={() => {
             setIsOpen(false);
-
             toast({
-              title: "Document Uploaded",
-              description: "Your document has been uploaded.",
+              title: "Note Created",
+              description: "Your note has been created.",
             });
           }}
         />
@@ -52,4 +51,4 @@ const CreateDocumentButton = () => {
   );
 };
 
-export default CreateDocumentButton;
+export default CreateNoteButton;
