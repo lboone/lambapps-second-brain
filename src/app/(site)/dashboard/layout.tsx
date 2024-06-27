@@ -1,4 +1,4 @@
-import NavPanel from "./nav-panel";
+import NavPanel from "@/app/(site)/dashboard/nav-panel";
 
 export default function DashboardLayout({
   children,

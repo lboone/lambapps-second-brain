@@ -2,9 +2,9 @@ import React from "react";
 import Link from "next/link";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 
-import HeaderActions from "./header-actions";
-import MobileNavPanel from "./dashboard/mobile-nav-panel";
-import SiteLogo from "./site-logo";
+import HeaderActions from "@/app/header-actions";
+import MobileNavPanel from "@/app/(site)/dashboard/mobile-nav-panel";
+import SiteLogo from "@/app/site-logo";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 
 const Header = () => {

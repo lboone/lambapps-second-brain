@@ -4,7 +4,7 @@ import { GrDocumentPdf } from "react-icons/gr";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { GrDocumentNotes } from "react-icons/gr";
 import { IoSettingsOutline } from "react-icons/io5";
-import HeaderActions from "../header-actions";
+import HeaderActions from "@/app/header-actions";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import NavItem from "./nav-item";
 import { usePathname } from "next/navigation";

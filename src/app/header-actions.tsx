@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { SignInButton, UserButton } from "@clerk/clerk-react";
+import { SignInButton, SignUpButton, UserButton } from "@clerk/clerk-react";
 import { Authenticated, Unauthenticated, AuthLoading } from "convex/react";
 import { Loader2 } from "lucide-react";
 
@@ -8,8 +8,11 @@ const HeaderActions = () => {
   return (
     <>
       <Unauthenticated>
-        <Button variant="site" size="site">
+        <Button variant="outline" size="site">
           <SignInButton />
+        </Button>
+        <Button variant="site" size="site">
+          <SignUpButton />
         </Button>
       </Unauthenticated>
       <Authenticated>

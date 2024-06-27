@@ -8,10 +8,10 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { RxHamburgerMenu } from "react-icons/rx";
-import Header from "../header";
+import Header from "@/app/header";
 import NavPanel from "./nav-panel";
-import PageTitle from "../page-title";
-import SiteLogo from "../site-logo";
+import PageTitle from "@/app/page-title";
+import SiteLogo from "@/app/site-logo";
 import { useState } from "react";
 
 const MobileNavPanel = () => {

@@ -5,7 +5,7 @@ import {
   Unauthenticated,
   useQuery,
 } from "convex/react";
-import { api } from "../../../../convex/_generated/api";
+import { api } from "../../../../../convex/_generated/api";
 import DocumentCard from "@/components/document-card";
 import CreateDocumentButton from "@/components/create-document-button";
 import DocumentCardSkeleton from "@/components/document-card-skeleton";

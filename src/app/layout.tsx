@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Inter as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
-import Providers from "./providers";
-import Header from "./header";
+import Providers from "@/app/providers";
 
 const fontSans = FontSans({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -25,10 +24,7 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <Providers>
-          <Header />
-          <div className="container mx-auto">{children}</div>
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
