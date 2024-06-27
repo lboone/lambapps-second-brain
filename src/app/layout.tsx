@@ -27,7 +27,7 @@ export default function RootLayout({
       >
         <Providers>
           <Header />
-          <div className="container mx-auto py-3">{children}</div>
+          <div className="container mx-auto">{children}</div>
         </Providers>
       </body>
     </html>

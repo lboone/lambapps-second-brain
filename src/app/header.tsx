@@ -1,14 +1,10 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { ModeToggle } from "@/components/ui/mode-toggle";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+
 import HeaderActions from "./header-actions";
+import MobileNavPanel from "./dashboard/mobile-nav-panel";
+import SiteLogo from "./site-logo";
 
 const Header = () => {
   return (
@@ -16,30 +12,14 @@ const Header = () => {
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center justify-between gap-12">
           <Link href="/" className="flex items-center gap-2 justify-between">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <Image
-                    src="/sheep.png"
-                    width={40}
-                    height={40}
-                    alt="Second Brain Logo"
-                    className="w-10 h-10 p-1 rounded-full bg-[#f5f5f5]  dark:bg-white"
-                  />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Second Brain</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-
+            <SiteLogo />
             <h1 className="text-2xl font-bold text-slate-600 dark:text-slate-100 hidden md:block">
               second.brain
             </h1>
           </Link>
           <nav>
             <Link
-              href="/"
+              href="/dashboard"
               className="
               px-4 
               py-2 
@@ -52,13 +32,16 @@ const Header = () => {
               dark:border-[#090a0b]
               dark:hover:border-slate-800"
             >
-              Documents
+              Dashboard
             </Link>
           </nav>
         </div>
-        <div className="flex items-center gap-2 justify-between">
-          <ModeToggle />
-          <HeaderActions />
+        <div className="">
+          <MobileNavPanel />
+          <div className="hidden md:flex items-center gap-2 justify-between">
+            <ModeToggle />
+            <HeaderActions />
+          </div>
         </div>
       </div>
     </header>

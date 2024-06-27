@@ -35,7 +35,7 @@ const DocumentCard = ({ document }: DocumentCardProps) => {
       </CardContent>
       <CardFooter className="bg-slate-100/25 pt-4 border-t border-slate-200 dark:border-none dark:bg-black/90">
         <Button asChild variant="outline" size="site" className="w-full">
-          <Link href={`/documents/${document._id}`}>
+          <Link href={`/dashboard/documents/${document._id}`}>
             <EyeIcon className="w-4 h-4 mr-2" /> View Document
           </Link>
         </Button>
