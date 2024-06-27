@@ -1,4 +1,4 @@
-import PageTitle from "@/app/page-title";
+import PageTitle from "@/components/page-title";
 import React from "react";
 
 const Notes = () => {

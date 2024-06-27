@@ -4,11 +4,11 @@ import { GrDocumentPdf } from "react-icons/gr";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { GrDocumentNotes } from "react-icons/gr";
 import { IoSettingsOutline } from "react-icons/io5";
-import HeaderActions from "@/app/header-actions";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import NavItem from "./nav-item";
 import { usePathname } from "next/navigation";
-import path from "path";
+import { SignOutButton } from "@clerk/clerk-react";
+import { Button } from "@/components/ui/button";
 
 const navItems = [
   {
@@ -56,12 +56,14 @@ const NavPanel = ({ setOpen }: NavPanelProps) => {
           </NavItem>
         ))}
       </ul>
-      <ul className="flex flex-row gap-2 items-center border-t border-slate-200  w-full py-5 justify-between">
+      <ul className="flex md:hidden gap-2 items-center border-t border-slate-200  w-full py-5 justify-between ">
         <li>
           <ModeToggle />
         </li>
         <li>
-          <HeaderActions />
+          <Button variant="site" size="site">
+            <SignOutButton />
+          </Button>
         </li>
       </ul>
     </nav>

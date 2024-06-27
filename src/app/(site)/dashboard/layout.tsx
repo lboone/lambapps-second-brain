@@ -10,7 +10,7 @@ export default function DashboardLayout({
       <div className="w-[20%] hidden md:block pr-10 border-r border-slate-200 mr-10 h-[93vh] pt-10 pb-10 ">
         <NavPanel />
       </div>
-      <div className="w-[80%] mt-10 mb-10">{children}</div>
+      <div className="w-[100%] mt-10 mb-10">{children}</div>
     </div>
   );
 }

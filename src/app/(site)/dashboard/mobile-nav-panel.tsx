@@ -8,10 +8,10 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { RxHamburgerMenu } from "react-icons/rx";
-import Header from "@/app/header";
+import Header from "@/components/header";
 import NavPanel from "./nav-panel";
-import PageTitle from "@/app/page-title";
-import SiteLogo from "@/app/site-logo";
+import PageTitle from "@/components/page-title";
+import SiteLogo from "@/components/site-logo";
 import { useState } from "react";
 
 const MobileNavPanel = () => {
@@ -21,7 +21,7 @@ const MobileNavPanel = () => {
       <SheetTrigger asChild className="block md:hidden">
         <RxHamburgerMenu className="cursor-pointer w-6 h-6" />
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="w-[300px]">
         <SheetHeader>
           <SheetTitle>
             <PageTitle>

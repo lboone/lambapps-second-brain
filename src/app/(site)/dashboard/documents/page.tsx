@@ -13,7 +13,7 @@ import Image from "next/image";
 import { Loader2 } from "lucide-react";
 import { SignInButton } from "@clerk/clerk-react";
 import { Skeleton } from "@/components/ui/skeleton";
-import PageTitle from "@/app/page-title";
+import PageTitle from "@/components/page-title";
 export default function Home() {
   const documents = useQuery(api.documents.getDocuments);
   return (
@@ -57,8 +57,9 @@ export default function Home() {
               <Image
                 src="/no_documents_found.svg"
                 alt="No Documents Found"
-                width={300}
-                height={300}
+                width={200}
+                height={200}
+                className="size-[200px] md:size-[400px]"
               />
               <h2 className="text-2xl">You have no documents yet.</h2>
               <CreateDocumentButton />

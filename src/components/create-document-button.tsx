@@ -22,9 +22,9 @@ const CreateDocumentButton = () => {
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button variant="site" size="site">
-          <div className="flex items-center gap-2 justify-center">
-            <HiOutlineUpload className="size-6" />
-            <p className="text-lg">Upload Doc</p>
+          <div className="flex items-center gap-2 justify-center text-md md:text-lg">
+            <HiOutlineUpload className="" />
+            <p className="">Upload Doc</p>
           </div>
         </Button>
       </DialogTrigger>

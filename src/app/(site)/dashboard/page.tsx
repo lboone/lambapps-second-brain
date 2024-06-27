@@ -1,5 +1,5 @@
 import React from "react";
-import PageTitle from "@/app/page-title";
+import PageTitle from "@/components/page-title";
 
 const Dashboard = () => {
   return (
